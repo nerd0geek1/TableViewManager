@@ -1,3 +1,4 @@
 excluded:
+  - Carthage/
   - TableViewManagerTests/
 line_length: 150
