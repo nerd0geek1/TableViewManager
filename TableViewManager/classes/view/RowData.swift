@@ -8,11 +8,11 @@
 
 import Foundation
 
-public func ==(lhs: RowData, rhs: RowData) -> Bool {
-    return false
+public class RowData: NSObject {
+    public override func isEqual(object: AnyObject?) -> Bool {
+        return false
+    }
 }
-
-public class RowData: Equatable {}
 
 public protocol RowDataAcceptableType {
     func update(rowData: RowData)

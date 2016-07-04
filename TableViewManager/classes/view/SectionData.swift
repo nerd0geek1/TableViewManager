@@ -22,7 +22,7 @@ public class SectionData {
     }
 
     public func rowData(at index: Int) -> RowData? {
-        if index >= numberOfRows() {
+        if index < 0 || index >= numberOfRows() {
             return nil
         }
 

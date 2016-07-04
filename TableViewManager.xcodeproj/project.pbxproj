@@ -8,8 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		2730D6961D2A16B2001C7AAC /* SwiftExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2730D6951D2A16B2001C7AAC /* SwiftExtensions.framework */; };
+		2730D69A1D2A4A0B001C7AAC /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2730D6981D2A4A0B001C7AAC /* Nimble.framework */; };
+		2730D69B1D2A4A0B001C7AAC /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2730D6991D2A4A0B001C7AAC /* Quick.framework */; };
+		2730D69D1D2A4A33001C7AAC /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2730D6981D2A4A0B001C7AAC /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2730D69E1D2A4A33001C7AAC /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2730D6991D2A4A0B001C7AAC /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2730D6A21D2A4B53001C7AAC /* TableViewSingleCellClassResolverSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730D6A11D2A4B53001C7AAC /* TableViewSingleCellClassResolverSpec.swift */; };
+		2730D6A31D2A4CD5001C7AAC /* TableViewCellClassResolverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2C86A1D1B5F89000D5205 /* TableViewCellClassResolverType.swift */; };
+		2730D6A51D2A4EA1001C7AAC /* SectionDataSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730D6A41D2A4EA1001C7AAC /* SectionDataSpec.swift */; };
+		2730D6A61D2A5008001C7AAC /* SectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2C8661D1B5F40000D5205 /* SectionData.swift */; };
+		2730D6A71D2A5029001C7AAC /* RowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2C8641D1B5F2B000D5205 /* RowData.swift */; };
+		2730D6A91D2A587E001C7AAC /* TableViewDataSourceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2730D6A81D2A587E001C7AAC /* TableViewDataSourceSpec.swift */; };
+		2730D6AA1D2A589E001C7AAC /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2C8721D1B5FE9000D5205 /* TableViewDataSource.swift */; };
+		2730D6AB1D2A58BF001C7AAC /* TableViewDataSourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2C86C1D1B5FAE000D5205 /* TableViewDataSourceType.swift */; };
+		2730D6AC1D2A58C6001C7AAC /* SectionDataFactoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2C8681D1B5F67000D5205 /* SectionDataFactoryType.swift */; };
 		737ADAB31D0EE02A0088DA02 /* TableViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737ADAA81D0EE02A0088DA02 /* TableViewManager.framework */; };
-		737ADAB81D0EE02A0088DA02 /* TableViewManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737ADAB71D0EE02A0088DA02 /* TableViewManagerTests.swift */; };
 		73E2C8651D1B5F2B000D5205 /* RowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2C8641D1B5F2B000D5205 /* RowData.swift */; };
 		73E2C8671D1B5F40000D5205 /* SectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2C8661D1B5F40000D5205 /* SectionData.swift */; };
 		73E2C8691D1B5F67000D5205 /* SectionDataFactoryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2C8681D1B5F67000D5205 /* SectionDataFactoryType.swift */; };
@@ -30,12 +42,30 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2730D69C1D2A4A21001C7AAC /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2730D69D1D2A4A33001C7AAC /* Nimble.framework in CopyFiles */,
+				2730D69E1D2A4A33001C7AAC /* Quick.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2730D6951D2A16B2001C7AAC /* SwiftExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExtensions.framework; path = Carthage/Build/iOS/SwiftExtensions.framework; sourceTree = "<group>"; };
+		2730D6981D2A4A0B001C7AAC /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
+		2730D6991D2A4A0B001C7AAC /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		2730D6A11D2A4B53001C7AAC /* TableViewSingleCellClassResolverSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSingleCellClassResolverSpec.swift; sourceTree = "<group>"; };
+		2730D6A41D2A4EA1001C7AAC /* SectionDataSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionDataSpec.swift; sourceTree = "<group>"; };
+		2730D6A81D2A587E001C7AAC /* TableViewDataSourceSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSourceSpec.swift; sourceTree = "<group>"; };
 		737ADAA81D0EE02A0088DA02 /* TableViewManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TableViewManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		737ADAAD1D0EE02A0088DA02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		737ADAB21D0EE02A0088DA02 /* TableViewManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TableViewManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		737ADAB71D0EE02A0088DA02 /* TableViewManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewManagerTests.swift; sourceTree = "<group>"; };
 		737ADAB91D0EE02A0088DA02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73E2C8641D1B5F2B000D5205 /* RowData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RowData.swift; sourceTree = "<group>"; };
 		73E2C8661D1B5F40000D5205 /* SectionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionData.swift; sourceTree = "<group>"; };
@@ -61,6 +91,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				737ADAB31D0EE02A0088DA02 /* TableViewManager.framework in Frameworks */,
+				2730D69A1D2A4A0B001C7AAC /* Nimble.framework in Frameworks */,
+				2730D69B1D2A4A0B001C7AAC /* Quick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,9 +102,29 @@
 		2730D6971D2A16B9001C7AAC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2730D6981D2A4A0B001C7AAC /* Nimble.framework */,
+				2730D6991D2A4A0B001C7AAC /* Quick.framework */,
 				2730D6951D2A16B2001C7AAC /* SwiftExtensions.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2730D69F1D2A4AC3001C7AAC /* classes */ = {
+			isa = PBXGroup;
+			children = (
+				2730D6A01D2A4AC8001C7AAC /* view */,
+			);
+			path = classes;
+			sourceTree = "<group>";
+		};
+		2730D6A01D2A4AC8001C7AAC /* view */ = {
+			isa = PBXGroup;
+			children = (
+				2730D6A11D2A4B53001C7AAC /* TableViewSingleCellClassResolverSpec.swift */,
+				2730D6A41D2A4EA1001C7AAC /* SectionDataSpec.swift */,
+				2730D6A81D2A587E001C7AAC /* TableViewDataSourceSpec.swift */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		737ADA9E1D0EE02A0088DA02 = {
@@ -106,7 +158,7 @@
 		737ADAB61D0EE02A0088DA02 /* TableViewManagerTests */ = {
 			isa = PBXGroup;
 			children = (
-				737ADAB71D0EE02A0088DA02 /* TableViewManagerTests.swift */,
+				2730D69F1D2A4AC3001C7AAC /* classes */,
 				737ADAB91D0EE02A0088DA02 /* Info.plist */,
 			);
 			path = TableViewManagerTests;
@@ -175,6 +227,7 @@
 				737ADAAE1D0EE02A0088DA02 /* Sources */,
 				737ADAAF1D0EE02A0088DA02 /* Frameworks */,
 				737ADAB01D0EE02A0088DA02 /* Resources */,
+				2730D69C1D2A4A21001C7AAC /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -291,7 +344,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				737ADAB81D0EE02A0088DA02 /* TableViewManagerTests.swift in Sources */,
+				2730D6AB1D2A58BF001C7AAC /* TableViewDataSourceType.swift in Sources */,
+				2730D6A51D2A4EA1001C7AAC /* SectionDataSpec.swift in Sources */,
+				2730D6A31D2A4CD5001C7AAC /* TableViewCellClassResolverType.swift in Sources */,
+				2730D6A71D2A5029001C7AAC /* RowData.swift in Sources */,
+				2730D6A91D2A587E001C7AAC /* TableViewDataSourceSpec.swift in Sources */,
+				2730D6A21D2A4B53001C7AAC /* TableViewSingleCellClassResolverSpec.swift in Sources */,
+				2730D6AA1D2A589E001C7AAC /* TableViewDataSource.swift in Sources */,
+				2730D6A61D2A5008001C7AAC /* SectionData.swift in Sources */,
+				2730D6AC1D2A58C6001C7AAC /* SectionDataFactoryType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,18 +504,29 @@
 		737ADAC01D0EE02A0088DA02 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = TableViewManagerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nerd0geek1.TableViewManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		737ADAC11D0EE02A0088DA02 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = TableViewManagerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nerd0geek1.TableViewManagerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

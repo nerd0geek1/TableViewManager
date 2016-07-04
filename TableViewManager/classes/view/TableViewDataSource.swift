@@ -128,7 +128,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
                 }
             }
         }
-        
+
         return removedIndexPaths
     }
 }
