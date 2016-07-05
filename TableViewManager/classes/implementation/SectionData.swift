@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 public class SectionData {
-    let headerView: UIView?
-    let headerData: SectionHeaderData?
+    public let headerView: UIView?
+    public let headerData: SectionHeaderData?
     let rowDataList: [RowData]
-    let footerView: UIView?
-    let footerData: SectionFooterData?
+    public let footerView: UIView?
+    public let footerData: SectionFooterData?
 
     //MARK: - public
 
