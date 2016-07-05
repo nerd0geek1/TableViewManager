@@ -12,6 +12,7 @@ import UIKit
 public class TableViewDelegate: NSObject, TableViewDelegateType {
     public var didSelectRow: (NSIndexPath -> Void)?
     public var didDeselectRow: (NSIndexPath -> Void)?
+    public weak var dataSource: TableViewDataSource?
 
     //MARK: - UITableViewDelegate
 

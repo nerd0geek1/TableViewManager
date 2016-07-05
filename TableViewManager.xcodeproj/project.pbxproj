@@ -31,6 +31,7 @@
 		737A1CA21D2B652F00A2228C /* TableViewCellClassResolverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737A1C8B1D2B64BF00A2228C /* TableViewCellClassResolverType.swift */; };
 		737A1CA51D2B672F00A2228C /* TableViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737ADAA81D0EE02A0088DA02 /* TableViewManager.framework */; };
 		737A1CA81D2B688D00A2228C /* CustomizedCellHeightType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737A1CA71D2B688D00A2228C /* CustomizedCellHeightType.swift */; };
+		737A1CAB1D2B853400A2228C /* UITableView+TableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737A1CAA1D2B853400A2228C /* UITableView+TableViewManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		737A1C941D2B64D100A2228C /* TableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		737A1C951D2B64D100A2228C /* TableViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDelegate.swift; sourceTree = "<group>"; };
 		737A1CA71D2B688D00A2228C /* CustomizedCellHeightType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomizedCellHeightType.swift; sourceTree = "<group>"; };
+		737A1CAA1D2B853400A2228C /* UITableView+TableViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+TableViewManager.swift"; sourceTree = "<group>"; };
 		737ADAA81D0EE02A0088DA02 /* TableViewManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TableViewManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		737ADAAD1D0EE02A0088DA02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		737ADAB21D0EE02A0088DA02 /* TableViewManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TableViewManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +154,14 @@
 			path = protocols;
 			sourceTree = "<group>";
 		};
+		737A1CA91D2B852200A2228C /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				737A1CAA1D2B853400A2228C /* UITableView+TableViewManager.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		737ADA9E1D0EE02A0088DA02 = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +202,7 @@
 		73E2C8611D1B5F0F000D5205 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				737A1CA91D2B852200A2228C /* extensions */,
 				737A1C891D2B64B200A2228C /* protocols */,
 				737A1C881D2B64AA00A2228C /* implementation */,
 			);
@@ -345,6 +356,7 @@
 				737A1C901D2B64BF00A2228C /* TableViewDataSourceType.swift in Sources */,
 				737A1C961D2B64D100A2228C /* RowData.swift in Sources */,
 				737A1C911D2B64BF00A2228C /* TableViewDelegateType.swift in Sources */,
+				737A1CAB1D2B853400A2228C /* UITableView+TableViewManager.swift in Sources */,
 				737A1C8E1D2B64BF00A2228C /* SectionDataFactoryType.swift in Sources */,
 				737A1CA81D2B688D00A2228C /* CustomizedCellHeightType.swift in Sources */,
 				737A1C981D2B64D100A2228C /* TableViewDataSource.swift in Sources */,
