@@ -15,7 +15,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
     public var setupCellConnection: ((indexPath: NSIndexPath, cell: UITableViewCell) -> Void)?
 
     private let sectionDataFactory: SectionDataFactoryType
-    private let cellClassResolver: TableViewCellClassResolverType.Type
+    let cellClassResolver: TableViewCellClassResolverType.Type
 
     private(set) var sectionDataList: [SectionData] = []
 
