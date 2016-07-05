@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 
 public class SectionData {
-    let headerView: UIView?
-    let headerData: SectionHeaderData?
+    public let headerView: UIView?
+    public let headerData: SectionHeaderData?
     let rowDataList: [RowData]
-    let footerView: UIView?
-    let footerData: SectionFooterData?
+    public let footerView: UIView?
+    public let footerData: SectionFooterData?
 
     //MARK: - public
 
@@ -44,7 +44,7 @@ public class SectionData {
 }
 
 public class SectionHeaderData {
-    let headerHeight: CGFloat
+    public let headerHeight: CGFloat
 
     public init(height: CGFloat) {
         self.headerHeight = height
@@ -52,7 +52,7 @@ public class SectionHeaderData {
 }
 
 public class SectionFooterData {
-    let footerHeight: CGFloat
+    public let footerHeight: CGFloat
 
     public init(height: CGFloat) {
         self.footerHeight = height
