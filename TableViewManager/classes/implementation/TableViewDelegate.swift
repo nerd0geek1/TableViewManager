@@ -22,4 +22,12 @@ public class TableViewDelegate: NSObject, TableViewDelegateType {
     public func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
         didDeselectRow?(indexPath)
     }
+
+    public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if let cell = tableView.cellForRowAtIndexPath(indexPath), customizedHeightCell = cell as? CustomizedCellHeightType {
+            return customizedHeightCell.dynamicType.customizedHeight
+        }
+
+        return 44
+    }
 }
