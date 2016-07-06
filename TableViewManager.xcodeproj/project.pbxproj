@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2730D6961D2A16B2001C7AAC /* SwiftExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2730D6951D2A16B2001C7AAC /* SwiftExtensions.framework */; };
 		2730D69A1D2A4A0B001C7AAC /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2730D6981D2A4A0B001C7AAC /* Nimble.framework */; };
 		2730D69B1D2A4A0B001C7AAC /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2730D6991D2A4A0B001C7AAC /* Quick.framework */; };
 		2730D69D1D2A4A33001C7AAC /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2730D6981D2A4A0B001C7AAC /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -32,6 +31,7 @@
 		737A1CA51D2B672F00A2228C /* TableViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737ADAA81D0EE02A0088DA02 /* TableViewManager.framework */; };
 		737A1CA81D2B688D00A2228C /* CustomizedCellHeightType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737A1CA71D2B688D00A2228C /* CustomizedCellHeightType.swift */; };
 		737A1CAB1D2B853400A2228C /* UITableView+TableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737A1CAA1D2B853400A2228C /* UITableView+TableViewManager.swift */; };
+		73D257A51D2D40F9005D0A3F /* SwiftExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D257A41D2D40F9005D0A3F /* SwiftExtensions.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +59,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2730D6951D2A16B2001C7AAC /* SwiftExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExtensions.framework; path = Carthage/Build/iOS/SwiftExtensions.framework; sourceTree = "<group>"; };
 		2730D6981D2A4A0B001C7AAC /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		2730D6991D2A4A0B001C7AAC /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		2730D6A11D2A4B53001C7AAC /* TableViewSingleCellClassResolverSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewSingleCellClassResolverSpec.swift; sourceTree = "<group>"; };
@@ -79,6 +78,7 @@
 		737ADAAD1D0EE02A0088DA02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		737ADAB21D0EE02A0088DA02 /* TableViewManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TableViewManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		737ADAB91D0EE02A0088DA02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		73D257A41D2D40F9005D0A3F /* SwiftExtensions.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExtensions.framework; path = Carthage/Build/iOS/SwiftExtensions.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2730D6961D2A16B2001C7AAC /* SwiftExtensions.framework in Frameworks */,
+				73D257A51D2D40F9005D0A3F /* SwiftExtensions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,9 +106,9 @@
 		2730D6971D2A16B9001C7AAC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				73D257A41D2D40F9005D0A3F /* SwiftExtensions.framework */,
 				2730D6981D2A4A0B001C7AAC /* Nimble.framework */,
 				2730D6991D2A4A0B001C7AAC /* Quick.framework */,
-				2730D6951D2A16B2001C7AAC /* SwiftExtensions.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -231,7 +231,6 @@
 				737ADAA51D0EE02A0088DA02 /* Headers */,
 				737ADAA61D0EE02A0088DA02 /* Resources */,
 				73E06C391D1B5D6E007E346D /* SwiftLint */,
-				2730D6941D2A1671001C7AAC /* Copy Carthage Resources */,
 			);
 			buildRules = (
 			);
@@ -315,21 +314,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2730D6941D2A1671001C7AAC /* Copy Carthage Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftExtensions.framework",
-			);
-			name = "Copy Carthage Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
 		73E06C391D1B5D6E007E346D /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
