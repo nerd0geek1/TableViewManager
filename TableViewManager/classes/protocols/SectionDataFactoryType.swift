@@ -10,5 +10,5 @@ import Foundation
 
 public protocol SectionDataFactoryType {
     func numberOfSections() -> Int
-    func create(for section: Int) -> SectionData
+    func create(for section: Int, completion: ((result: SectionData) -> Void))
 }
