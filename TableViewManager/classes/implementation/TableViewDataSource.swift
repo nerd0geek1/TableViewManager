@@ -69,17 +69,47 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
     public func updateSectionDataList(completion: ((insertedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) -> Void)?) {
         let currentSectionDataList: [SectionData] = self.sectionDataList
-        let newSectionDataList: [SectionData] = [Int](0..<sectionDataFactory.numberOfSections()).map({ self.sectionDataFactory.create(for: $0) })
 
-        let insertedIndexPaths: [NSIndexPath] = self.insertedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList)
-        let removedIndexPaths: [NSIndexPath]  = self.removedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList)
+        fetchNewSectionDataList {[weak self] newSectionDataList in
+            if let unwrapped = self {
+                let insertedIndexPaths: [NSIndexPath] = unwrapped.insertedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList)
+                let removedIndexPaths: [NSIndexPath]  = unwrapped.removedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList)
 
-        self.sectionDataList = newSectionDataList
+                unwrapped.sectionDataList = newSectionDataList
 
-        completion?(insertedIndexPaths: insertedIndexPaths, removedIndexPaths: removedIndexPaths)
+                completion?(insertedIndexPaths: insertedIndexPaths, removedIndexPaths: removedIndexPaths)
+            }
+        }
     }
 
     //MARK: - private
+
+    private func fetchNewSectionDataList(completion: ((newSectionDataList: [SectionData]) -> Void)) {
+        fetchNewSectionDataList(currentIndex: 0,
+                                endIndex: sectionDataFactory.numberOfSections() - 1,
+                                fetchedSectionDataList: []) { result in
+                                    completion(newSectionDataList: result)
+        }
+    }
+
+    private func fetchNewSectionDataList(currentIndex currentIndex: Int,
+                                                      endIndex: Int,
+                                                      fetchedSectionDataList: [SectionData],
+                                                      completion: ((result: [SectionData]) -> Void)) {
+        sectionDataFactory.create(for: currentIndex) {[weak self] result in
+            var fetchedSectionDataList: [SectionData] = fetchedSectionDataList
+            fetchedSectionDataList.append(result)
+
+            if currentIndex == endIndex {
+                completion(result: fetchedSectionDataList)
+            } else {
+                self?.fetchNewSectionDataList(currentIndex: currentIndex + 1,
+                                              endIndex: endIndex,
+                                              fetchedSectionDataList: fetchedSectionDataList,
+                                              completion: completion)
+            }
+        }
+    }
 
     private func insertedIndexPaths(currentSectionDataList: [SectionData], newSectionDataList: [SectionData]) -> [NSIndexPath] {
         var insertedIndexPaths: [NSIndexPath] = []
