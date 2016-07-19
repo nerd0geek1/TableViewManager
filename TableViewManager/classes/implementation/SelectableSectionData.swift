@@ -26,8 +26,8 @@ public class SelectableSectionData: SectionData {
 
         super.init(headerView: headerView, headerData: headerData, rowDataList: selectableRowDataList, footerView: footerView, footerData: footerData)
 
-        for selectedRowData in selectableRowDataList {
-            selectedRowData.didUpdateSelectedState = {[weak self] in
+        for selectableRowData in self.rowDataList as? [SelectableRowData] ?? [] {
+            selectableRowData.didUpdateSelectedState = {[weak self] in
                 self?.didUpdateSelectedState?()
             }
         }
