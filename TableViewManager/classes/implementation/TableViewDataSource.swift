@@ -67,6 +67,16 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         return sectionDataList[indexPath.section].rowData(at: indexPath.row)
     }
 
+    public func hasRowData() -> Bool {
+        for sectionData in sectionDataList {
+            if sectionData.numberOfRows() > 0 {
+                return true
+            }
+        }
+
+        return false
+    }
+
     public func updateSectionDataList(completion: ((insertedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) -> Void)?) {
         let currentSectionDataList: [SectionData] = self.sectionDataList
 
@@ -85,8 +95,9 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
     //MARK: - private
 
     private func fetchNewSectionDataList(completion: ((newSectionDataList: [SectionData]) -> Void)) {
+        let endIndex: Int = sectionDataFactory.numberOfSections() == 0 ? 0 : sectionDataFactory.numberOfSections() - 1
         fetchNewSectionDataList(currentIndex: 0,
-                                endIndex: sectionDataFactory.numberOfSections() - 1,
+                                endIndex: endIndex,
                                 fetchedSectionDataList: []) { result in
                                     completion(newSectionDataList: result)
         }

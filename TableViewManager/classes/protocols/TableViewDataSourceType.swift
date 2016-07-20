@@ -13,5 +13,6 @@ public protocol TableViewDataSourceType: UITableViewDataSource {
     var setupCellConnection: ((indexPath: NSIndexPath, cell: UITableViewCell) -> Void)? { get set }
 
     func rowData(at indexPath: NSIndexPath) -> RowData?
+    func hasRowData() -> Bool
     func updateSectionDataList(completion: ((insertedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) -> Void)?)
 }
