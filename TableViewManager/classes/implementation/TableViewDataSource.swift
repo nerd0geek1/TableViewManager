@@ -13,6 +13,8 @@ import SwiftExtensions
 public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
     public var setupCellConnection: ((indexPath: NSIndexPath, cell: UITableViewCell) -> Void)?
+    public var canEditRow: ((indexPath: NSIndexPath) -> Bool)?
+    public var didEditRow: ((editingStyle: UITableViewCellEditingStyle, indexPath: NSIndexPath) -> Void)?
 
     private let sectionDataFactory: SectionDataFactoryType
     let cellClassResolver: TableViewCellClassResolverType.Type
@@ -55,6 +57,20 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
     public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sectionDataList.count
+    }
+
+    public func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if let canEditRow = canEditRow {
+            return canEditRow(indexPath: indexPath)
+        }
+
+        return false
+    }
+
+    public func tableView(tableView: UITableView,
+                          commitEditingStyle editingStyle: UITableViewCellEditingStyle,
+                          forRowAtIndexPath indexPath: NSIndexPath) {
+        didEditRow?(editingStyle: editingStyle, indexPath: indexPath)
     }
 
     //MARK: - TableViewDataSourceType
