@@ -11,6 +11,8 @@ import UIKit
 
 public protocol TableViewDataSourceType: UITableViewDataSource {
     var setupCellConnection: ((indexPath: NSIndexPath, cell: UITableViewCell) -> Void)? { get set }
+    var canEditRow: ((indexPath: NSIndexPath) -> Bool)? { get set }
+    var didEditRow: ((editingStyle: UITableViewCellEditingStyle, indexPath: NSIndexPath) -> Void)? { get set }
 
     func rowData(at indexPath: NSIndexPath) -> RowData?
     func hasRowData() -> Bool
