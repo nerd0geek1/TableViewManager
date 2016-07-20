@@ -18,7 +18,7 @@ class TableViewDataSourceSpec: QuickSpec {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
 
                         let indexPath: NSIndexPath          = NSIndexPath(forRow: 1, inSection: 1)
-                        let dataSource: TableViewDataSource = tableViewAndRelatedModules.1
+                        let dataSource: TableViewDataSource = tableViewAndRelatedModules.dataSource
 
                         let rowData: DummyRowData? = dataSource.rowData(at: indexPath) as? DummyRowData
 
@@ -32,7 +32,7 @@ class TableViewDataSourceSpec: QuickSpec {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
 
                         let indexPath: NSIndexPath          = NSIndexPath(forRow: 1, inSection: 2)
-                        let dataSource: TableViewDataSource = tableViewAndRelatedModules.1
+                        let dataSource: TableViewDataSource = tableViewAndRelatedModules.dataSource
 
                         let rowData: DummyRowData? = dataSource.rowData(at: indexPath) as? DummyRowData
 
@@ -40,14 +40,15 @@ class TableViewDataSourceSpec: QuickSpec {
                     })
                 })
             })
+
             describe("updateSectionDataList(completion: ((insertedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) -> Void)?)", {
                 context("when some UITableViewCells are inserted", {
                     it("will return not empty insertedIndexPaths, empty removedIndexPaths", closure: {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
 
-                        tableViewAndRelatedModules.2.sectionCount = 3
+                        tableViewAndRelatedModules.sectionDataFactory.sectionCount = 3
 
-                        tableViewAndRelatedModules.1.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
                             expect(insertedIndexPaths.count).to(equal(3))
                             expect(removedIndexPaths.count).to(equal(0))
 
@@ -61,8 +62,8 @@ class TableViewDataSourceSpec: QuickSpec {
                     it("will return empty insertedIndexPaths, empty removedIndexPaths", closure: {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
 
-                        tableViewAndRelatedModules.2.rowDataCount = 2
-                        tableViewAndRelatedModules.1.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
+                        tableViewAndRelatedModules.sectionDataFactory.rowDataCount = 2
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
                             expect(insertedIndexPaths.count).to(equal(0))
                             expect(removedIndexPaths.count).to(equal(2))
 
@@ -75,7 +76,7 @@ class TableViewDataSourceSpec: QuickSpec {
         }
     }
 
-    private func generateTableViewAndRelatedModules() -> (UITableView, TableViewDataSource, DummySectionDataFactory) {
+    private func generateTableViewAndRelatedModules() -> (tableView: UITableView, dataSource: TableViewDataSource, sectionDataFactory: DummySectionDataFactory) {
         let cellClassResolver                           = TableViewSingleCellClassResolver<DummyTableViewCell>.self
         let sectionDataFactory: DummySectionDataFactory = DummySectionDataFactory()
         sectionDataFactory.sectionCount = 2
@@ -84,7 +85,7 @@ class TableViewDataSourceSpec: QuickSpec {
         let tableView: UITableView          = UITableView()
         tableView.dataSource = dataSource
 
-        return (tableView, dataSource, sectionDataFactory)
+        return (tableView: tableView, dataSource: dataSource, sectionDataFactory: sectionDataFactory)
     }
 }
 
