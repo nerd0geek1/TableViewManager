@@ -67,6 +67,16 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         return sectionDataList[indexPath.section].rowData(at: indexPath.row)
     }
 
+    public func hasRowData() -> Bool {
+        for sectionData in sectionDataList {
+            if sectionData.numberOfRows() > 0 {
+                return true
+            }
+        }
+
+        return false
+    }
+
     public func updateSectionDataList(completion: ((insertedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) -> Void)?) {
         let currentSectionDataList: [SectionData] = self.sectionDataList
 

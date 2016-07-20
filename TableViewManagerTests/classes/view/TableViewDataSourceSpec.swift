@@ -73,6 +73,38 @@ class TableViewDataSourceSpec: QuickSpec {
                     })
                 })
             })
+
+            describe("hasRowData()", {
+                context("with sectionDataList which have not empty rowDataList", {
+                    it("will return true", closure: {
+                        let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
+
+                        expect(tableViewAndRelatedModules.dataSource.hasRowData()).to(beTrue())
+                    })
+                })
+                context("with sectionDataList which have empty rowDataList", {
+                    it("will return false", closure: {
+                        let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
+
+                        tableViewAndRelatedModules.sectionDataFactory.rowDataCount = 0
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
+                            expect(tableViewAndRelatedModules.dataSource.hasRowData()).to(beFalse())
+                        })
+                    })
+                })
+                context("with sectionDataList which is empty", {
+                    it("will return false", closure: {
+                        let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
+
+                        tableViewAndRelatedModules.sectionDataFactory.sectionCount = 0
+                        tableViewAndRelatedModules.sectionDataFactory.rowDataCount = 0
+
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
+                            expect(tableViewAndRelatedModules.dataSource.hasRowData()).to(beFalse())
+                        })
+                    })
+                })
+            })
         }
     }
 
