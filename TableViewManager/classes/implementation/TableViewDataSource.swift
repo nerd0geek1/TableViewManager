@@ -85,8 +85,9 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
     //MARK: - private
 
     private func fetchNewSectionDataList(completion: ((newSectionDataList: [SectionData]) -> Void)) {
+        let endIndex: Int = sectionDataFactory.numberOfSections() == 0 ? 0 : sectionDataFactory.numberOfSections() - 1
         fetchNewSectionDataList(currentIndex: 0,
-                                endIndex: sectionDataFactory.numberOfSections() - 1,
+                                endIndex: endIndex,
                                 fetchedSectionDataList: []) { result in
                                     completion(newSectionDataList: result)
         }
