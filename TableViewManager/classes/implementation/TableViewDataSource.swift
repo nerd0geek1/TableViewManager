@@ -19,7 +19,11 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
     private let sectionDataFactory: SectionDataFactoryType
     let cellClassResolver: TableViewCellClassResolverType.Type
 
-    private(set) var sectionDataList: [SectionData] = []
+    private(set) var sectionDataList: [SectionData] = [] {
+        didSet {
+            didUpdateSectionDataList()
+        }
+    }
 
     public init(sectionDataFactory: SectionDataFactoryType, cellClassResolver: TableViewCellClassResolverType.Type) {
         self.sectionDataFactory = sectionDataFactory
@@ -84,13 +88,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
     }
 
     public func hasRowData() -> Bool {
-        for sectionData in sectionDataList {
-            if sectionData.numberOfRows() > 0 {
-                return true
-            }
-        }
-
-        return false
+        return !allRowDataList().isEmpty
     }
 
     public func updateSectionDataList(completion: ((insertedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) -> Void)?) {
@@ -107,6 +105,20 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
             }
         }
     }
+
+    //MARK: - internal
+
+    func allRowDataList() -> [RowData] {
+        var allRowDataList: [RowData] = []
+
+        for sectionData in sectionDataList {
+            allRowDataList.appendContentsOf(sectionData.rowDataList)
+        }
+
+        return allRowDataList
+    }
+
+    func didUpdateSectionDataList() {}
 
     //MARK: - private
 
