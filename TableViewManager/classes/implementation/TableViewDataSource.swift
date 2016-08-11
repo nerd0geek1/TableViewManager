@@ -19,7 +19,11 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
     private let sectionDataFactory: SectionDataFactoryType
     let cellClassResolver: TableViewCellClassResolverType.Type
 
-    private(set) var sectionDataList: [SectionData] = [] {
+    public var sectionDataList: [SectionData] {
+        return internalSectionDataList
+    }
+
+    private var internalSectionDataList: [SectionData] = [] {
         didSet {
             didUpdateSectionDataList()
         }
@@ -79,6 +83,20 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
     //MARK: - TableViewDataSourceType
 
+    public func sectionCount() -> Int {
+        return sectionDataList.count
+    }
+
+    public func allRowDataList() -> [RowData] {
+        var allRowDataList: [RowData] = []
+
+        for sectionData in sectionDataList {
+            allRowDataList.appendContentsOf(sectionData.rowDataList)
+        }
+
+        return allRowDataList
+    }
+
     public func rowData(at indexPath: NSIndexPath) -> RowData? {
         if indexPath.section >= sectionDataList.count {
             return nil
@@ -99,7 +117,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
                 let insertedIndexPaths: [NSIndexPath] = unwrapped.insertedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList)
                 let removedIndexPaths: [NSIndexPath]  = unwrapped.removedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList)
 
-                unwrapped.sectionDataList = newSectionDataList
+                unwrapped.internalSectionDataList = newSectionDataList
 
                 completion?(insertedIndexPaths: insertedIndexPaths, removedIndexPaths: removedIndexPaths)
             }
@@ -107,16 +125,6 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
     }
 
     //MARK: - internal
-
-    func allRowDataList() -> [RowData] {
-        var allRowDataList: [RowData] = []
-
-        for sectionData in sectionDataList {
-            allRowDataList.appendContentsOf(sectionData.rowDataList)
-        }
-
-        return allRowDataList
-    }
 
     func didUpdateSectionDataList() {}
 

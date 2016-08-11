@@ -12,6 +12,46 @@ import Nimble
 class TableViewDataSourceSpec: QuickSpec {
     override func spec() {
         describe("TableViewDataSource") {
+            describe("sectionCount()", {
+                it("return section count", closure: {
+                    let tableViewAndRelatedModules                  = self.generateTableViewAndRelatedModules()
+                    let sectionDataFactory: DummySectionDataFactory = tableViewAndRelatedModules.sectionDataFactory
+                    let dataSource: TableViewDataSource             = tableViewAndRelatedModules.dataSource
+
+                    expect(tableViewAndRelatedModules.dataSource.sectionCount()).to(equal(2))
+
+                    sectionDataFactory.sectionCount = 5
+                    dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
+                        expect(dataSource.sectionCount()).to(equal(5))
+                    })
+                })
+            })
+            describe("allRowDataList()", {
+                it("will return RowData array in order of section sorted", closure: {
+                    let tableViewAndRelatedModules                  = self.generateTableViewAndRelatedModules()
+                    let sectionDataFactory: DummySectionDataFactory = tableViewAndRelatedModules.sectionDataFactory
+                    let dataSource: TableViewDataSource             = tableViewAndRelatedModules.dataSource
+
+                    let rowDataList: [RowData] = dataSource.allRowDataList()
+
+                    expect(rowDataList.count).to(equal(6))
+                    expect((rowDataList[0] as! DummyRowData).indexPath).to(equal(NSIndexPath(forRow: 0, inSection: 0)))
+                    expect((rowDataList[2] as! DummyRowData).indexPath).to(equal(NSIndexPath(forRow: 2, inSection: 0)))
+                    expect((rowDataList[3] as! DummyRowData).indexPath).to(equal(NSIndexPath(forRow: 0, inSection: 1)))
+
+                    sectionDataFactory.sectionCount = 3
+                    sectionDataFactory.rowDataCount = 4
+
+                    dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
+                        let rowDataList: [RowData] = dataSource.allRowDataList()
+
+                        expect(rowDataList.count).to(equal(12))
+                        expect((rowDataList[0] as! DummyRowData).indexPath).to(equal(NSIndexPath(forRow: 0, inSection: 0)))
+                        expect((rowDataList[3] as! DummyRowData).indexPath).to(equal(NSIndexPath(forRow: 3, inSection: 0)))
+                        expect((rowDataList[4] as! DummyRowData).indexPath).to(equal(NSIndexPath(forRow: 0, inSection: 1)))
+                    })
+                })
+            })
             describe("rowData(at indexPath: NSIndexPath)", {
                 context("with valid indexPath", {
                     it("return valid DummyRowData", closure: {
@@ -103,6 +143,15 @@ class TableViewDataSourceSpec: QuickSpec {
                             expect(tableViewAndRelatedModules.dataSource.hasRowData()).to(beFalse())
                         })
                     })
+                })
+            })
+
+            describe("sectionDataList", {
+                it("will return sectionData array", closure: {
+                    let tableViewAndRelatedModules      = self.generateTableViewAndRelatedModules()
+                    let dataSource: TableViewDataSource = tableViewAndRelatedModules.dataSource
+
+                    expect(dataSource.sectionDataList.count).to(equal(2))
                 })
             })
         }
