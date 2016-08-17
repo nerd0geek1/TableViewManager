@@ -27,8 +27,8 @@ public class TableViewDelegate: NSObject, TableViewDelegateType {
     public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let cellClass: UITableViewCell.Type? = dataSource?.cellClassResolver.cellClass(for: indexPath)
 
-        if let cellClass = cellClass, customizedHeightCellClass = cellClass as? CustomizedCellHeightType {
-            return customizedHeightCellClass.dynamicType.customizedHeight
+        if let cellClass = cellClass, customizedHeightCellClass = cellClass as? CustomizedCellHeightType.Type {
+            return customizedHeightCellClass.customizedHeight
         }
 
         return 44
