@@ -143,9 +143,13 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
                                                       endIndex: Int,
                                                       fetchedSectionDataList: [SectionData],
                                                       completion: ((result: [SectionData]) -> Void)) {
-        sectionDataFactory.create(for: currentIndex) {[weak self] result in
+        sectionDataFactory.create(for: currentIndex) {[weak self] (sectionData, error) in
+            if let error = error {
+                return
+            }
+
             var fetchedSectionDataList: [SectionData] = fetchedSectionDataList
-            fetchedSectionDataList.append(result)
+            fetchedSectionDataList.append(sectionData)
 
             if currentIndex == endIndex {
                 completion(result: fetchedSectionDataList)

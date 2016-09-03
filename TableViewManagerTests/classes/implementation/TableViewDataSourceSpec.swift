@@ -204,10 +204,12 @@ private class DummySectionDataFactory: SectionDataFactoryType {
     var sectionCount: Int = 0
     var rowDataCount: Int = 0
 
-    func create(for section: Int, completion: ((result: SectionData) -> Void)) {
-        let rowDataList: [DummyRowData] = [Int](0..<rowDataCount).map({ DummyRowData.init(indexPath: NSIndexPath(forRow: $0, inSection: section)) })
+    private func create(for section: Int, completion: ((sectionData: SectionData, error: NSError?) -> Void)) {
+        let rowDataList: [DummyRowData] = [Int](0..<rowDataCount).map({
+            DummyRowData.init(indexPath: NSIndexPath(forRow: $0, inSection: section))
+        })
 
-        completion(result: SectionData(rowDataList: rowDataList))
+        completion(sectionData: SectionData(rowDataList: rowDataList), error: nil)
     }
 
     func numberOfSections() -> Int {
