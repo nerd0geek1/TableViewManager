@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+
+import Result
 import SwiftExtensions
 
 public class TableViewDataSource: NSObject, TableViewDataSourceType {
@@ -109,18 +111,21 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         return !allRowDataList().isEmpty
     }
 
-    public func updateSectionDataList(completion: ((insertedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) -> Void)?) {
+    public func updateSectionDataList(completion: ((result: SectionDataListUpdateResult) -> Void)?) {
         let currentSectionDataList: [SectionData] = self.sectionDataList
 
-        fetchNewSectionDataList {[weak self] newSectionDataList in
-            if let unwrapped = self {
-                let insertedIndexPaths: [NSIndexPath] = unwrapped.insertedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList)
-                let removedIndexPaths: [NSIndexPath]  = unwrapped.removedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList)
-
-                unwrapped.internalSectionDataList = newSectionDataList
-
-                completion?(insertedIndexPaths: insertedIndexPaths, removedIndexPaths: removedIndexPaths)
+        fetchNewSectionDataList {[weak self] (newSectionDataList, error) in
+            if let error = error {
+                completion?(result: Result.Failure(error))
+                return
             }
+
+            let insertedIndexPaths: [NSIndexPath] = self?.insertedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList) ?? []
+            let removedIndexPaths: [NSIndexPath]  = self?.removedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList) ?? []
+
+            self?.internalSectionDataList = newSectionDataList
+
+            completion?(result: Result.Success((insertedIndexPaths: insertedIndexPaths, removedIndexPaths: removedIndexPaths)))
         }
     }
 
@@ -130,21 +135,23 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
     //MARK: - private
 
-    private func fetchNewSectionDataList(completion: ((newSectionDataList: [SectionData]) -> Void)) {
+    private func fetchNewSectionDataList(completion: ((newSectionDataList: [SectionData], error: NSError?) -> Void)) {
         let endIndex: Int = sectionDataFactory.numberOfSections() == 0 ? 0 : sectionDataFactory.numberOfSections() - 1
+
         fetchNewSectionDataList(currentIndex: 0,
                                 endIndex: endIndex,
-                                fetchedSectionDataList: []) { result in
-                                    completion(newSectionDataList: result)
-        }
+                                fetchedSectionDataList: [],
+                                completion: completion)
     }
 
     private func fetchNewSectionDataList(currentIndex currentIndex: Int,
                                                       endIndex: Int,
                                                       fetchedSectionDataList: [SectionData],
-                                                      completion: ((result: [SectionData]) -> Void)) {
+                                                      completion: ((newSectionDataList: [SectionData], error: NSError?) -> Void)) {
+
         sectionDataFactory.create(for: currentIndex) {[weak self] (sectionData, error) in
             if let error = error {
+                completion(newSectionDataList: [], error: error)
                 return
             }
 
@@ -152,7 +159,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
             fetchedSectionDataList.append(sectionData)
 
             if currentIndex == endIndex {
-                completion(result: fetchedSectionDataList)
+                completion(newSectionDataList: fetchedSectionDataList, error: nil)
             } else {
                 self?.fetchNewSectionDataList(currentIndex: currentIndex + 1,
                                               endIndex: endIndex,
