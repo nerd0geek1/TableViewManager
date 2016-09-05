@@ -8,6 +8,7 @@
 
 import Quick
 import Nimble
+import Result
 
 class TableViewDataSourceSpec: QuickSpec {
     override func spec() {
@@ -21,7 +22,7 @@ class TableViewDataSourceSpec: QuickSpec {
                     expect(tableViewAndRelatedModules.dataSource.sectionCount()).to(equal(2))
 
                     sectionDataFactory.sectionCount = 5
-                    dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
+                    dataSource.updateSectionDataList({ result in
                         expect(dataSource.sectionCount()).to(equal(5))
                     })
                 })
@@ -42,7 +43,7 @@ class TableViewDataSourceSpec: QuickSpec {
                     sectionDataFactory.sectionCount = 3
                     sectionDataFactory.rowDataCount = 4
 
-                    dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
+                    dataSource.updateSectionDataList({ result in
                         let rowDataList: [RowData] = dataSource.allRowDataList()
 
                         expect(rowDataList.count).to(equal(12))
@@ -88,13 +89,17 @@ class TableViewDataSourceSpec: QuickSpec {
 
                         tableViewAndRelatedModules.sectionDataFactory.sectionCount = 3
 
-                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
-                            expect(insertedIndexPaths.count).to(equal(3))
-                            expect(removedIndexPaths.count).to(equal(0))
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ result in
+                            switch result {
+                            case .Success(let insertedIndexPaths, let removedIndexPaths):
+                                expect(insertedIndexPaths.count).to(equal(3))
+                                expect(removedIndexPaths.count).to(equal(0))
 
-                            expect(insertedIndexPaths[0]).to(equal(NSIndexPath(forRow: 0, inSection: 2)))
-                            expect(insertedIndexPaths[1]).to(equal(NSIndexPath(forRow: 1, inSection: 2)))
-                            expect(insertedIndexPaths[2]).to(equal(NSIndexPath(forRow: 2, inSection: 2)))
+                                expect(insertedIndexPaths[0]).to(equal(NSIndexPath(forRow: 0, inSection: 2)))
+                                expect(insertedIndexPaths[1]).to(equal(NSIndexPath(forRow: 1, inSection: 2)))
+                                expect(insertedIndexPaths[2]).to(equal(NSIndexPath(forRow: 2, inSection: 2)))
+                            case .Failure:  fail("SectionDataFactoryType return error unexpectedly.")
+                            }
                         })
                     })
                 })
@@ -103,12 +108,17 @@ class TableViewDataSourceSpec: QuickSpec {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
 
                         tableViewAndRelatedModules.sectionDataFactory.rowDataCount = 2
-                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
-                            expect(insertedIndexPaths.count).to(equal(0))
-                            expect(removedIndexPaths.count).to(equal(2))
 
-                            expect(removedIndexPaths[0]).to(equal(NSIndexPath(forRow: 2, inSection: 0)))
-                            expect(removedIndexPaths[1]).to(equal(NSIndexPath(forRow: 2, inSection: 1)))
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ result in
+                            switch result {
+                            case .Success(let insertedIndexPaths, let removedIndexPaths):
+                                expect(insertedIndexPaths.count).to(equal(0))
+                                expect(removedIndexPaths.count).to(equal(2))
+
+                                expect(removedIndexPaths[0]).to(equal(NSIndexPath(forRow: 2, inSection: 0)))
+                                expect(removedIndexPaths[1]).to(equal(NSIndexPath(forRow: 2, inSection: 1)))
+                            case .Failure:  fail("SectionDataFactoryType return error unexpectedly.")
+                            }
                         })
                     })
                 })
@@ -127,7 +137,7 @@ class TableViewDataSourceSpec: QuickSpec {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
 
                         tableViewAndRelatedModules.sectionDataFactory.rowDataCount = 0
-                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ result in
                             expect(tableViewAndRelatedModules.dataSource.hasRowData()).to(beFalse())
                         })
                     })
@@ -139,7 +149,7 @@ class TableViewDataSourceSpec: QuickSpec {
                         tableViewAndRelatedModules.sectionDataFactory.sectionCount = 0
                         tableViewAndRelatedModules.sectionDataFactory.rowDataCount = 0
 
-                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (insertedIndexPaths, removedIndexPaths) in
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ result in
                             expect(tableViewAndRelatedModules.dataSource.hasRowData()).to(beFalse())
                         })
                     })
@@ -204,10 +214,12 @@ private class DummySectionDataFactory: SectionDataFactoryType {
     var sectionCount: Int = 0
     var rowDataCount: Int = 0
 
-    func create(for section: Int, completion: ((result: SectionData) -> Void)) {
-        let rowDataList: [DummyRowData] = [Int](0..<rowDataCount).map({ DummyRowData.init(indexPath: NSIndexPath(forRow: $0, inSection: section)) })
+    private func create(for section: Int, completion: ((sectionData: SectionData, error: NSError?) -> Void)) {
+        let rowDataList: [DummyRowData] = [Int](0..<rowDataCount).map({
+            DummyRowData.init(indexPath: NSIndexPath(forRow: $0, inSection: section))
+        })
 
-        completion(result: SectionData(rowDataList: rowDataList))
+        completion(sectionData: SectionData(rowDataList: rowDataList), error: nil)
     }
 
     func numberOfSections() -> Int {

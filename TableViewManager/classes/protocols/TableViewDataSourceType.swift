@@ -8,6 +8,9 @@
 
 import Foundation
 import UIKit
+import Result
+
+public typealias SectionDataListUpdateResult = Result<(insertedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]), NSError>
 
 public protocol TableViewDataSourceType: UITableViewDataSource {
     var setupCellConnection: ((indexPath: NSIndexPath, cell: UITableViewCell) -> Void)? { get set }
@@ -20,5 +23,5 @@ public protocol TableViewDataSourceType: UITableViewDataSource {
     func allRowDataList() -> [RowData]
     func rowData(at indexPath: NSIndexPath) -> RowData?
     func hasRowData() -> Bool
-    func updateSectionDataList(completion: ((insertedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) -> Void)?)
+    func updateSectionDataList(completion: ((result: SectionDataListUpdateResult) -> Void)?)
 }

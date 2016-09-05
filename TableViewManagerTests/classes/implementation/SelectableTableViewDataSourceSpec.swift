@@ -8,6 +8,7 @@
 
 import Quick
 import Nimble
+import Result
 
 class SelectableTableViewDataSourceSpec: QuickSpec {
     override func spec() {
@@ -184,10 +185,12 @@ private class DummySectionDataFactory: SectionDataFactoryType {
     var sectionCount: Int = 0
     var rowDataCount: Int = 0
 
-    func create(for section: Int, completion: ((result: SectionData) -> Void)) {
-        let rowDataList: [DummySelectableRowData] = [Int](0..<rowDataCount).map({ DummySelectableRowData.init(indexPath: NSIndexPath(forRow: $0, inSection: section)) })
+    private func create(for section: Int, completion: ((sectionData: SectionData, error: NSError?) -> Void)) {
+        let rowDataList: [DummySelectableRowData] = [Int](0..<rowDataCount).map({
+            DummySelectableRowData.init(indexPath: NSIndexPath(forRow: $0, inSection: section))
+        })
 
-        completion(result: SelectableSectionData(rowDataList: rowDataList))
+        completion(sectionData: SelectableSectionData(rowDataList: rowDataList), error: nil)
     }
 
     func numberOfSections() -> Int {
