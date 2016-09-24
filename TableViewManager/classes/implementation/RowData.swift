@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class RowData: NSObject {
-    public override func isEqual(object: AnyObject?) -> Bool {
+open class RowData: NSObject {
+    open override func isEqual(_ object: Any?) -> Bool {
         return false
     }
 }
 
 public protocol RowDataAcceptableType {
-    func update(rowData: RowData)
+    func update(_ rowData: RowData)
 }

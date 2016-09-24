@@ -11,7 +11,7 @@ import UIKit
 
 public protocol TableViewCellClassResolverType {
     static func registeredCellClasses() -> [UITableViewCell.Type]
-    static func cellClass(for indexPath: NSIndexPath) -> UITableViewCell.Type
+    static func cellClass(for indexPath: IndexPath) -> UITableViewCell.Type
 }
 
 public class TableViewSingleCellClassResolver<T: UITableViewCell>: TableViewCellClassResolverType {
@@ -19,7 +19,7 @@ public class TableViewSingleCellClassResolver<T: UITableViewCell>: TableViewCell
         return [T.self]
     }
 
-    public static func cellClass(for indexPath: NSIndexPath) -> UITableViewCell.Type {
+    public static func cellClass(for indexPath: IndexPath) -> UITableViewCell.Type {
         return T.self
     }
 }

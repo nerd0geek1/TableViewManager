@@ -21,10 +21,10 @@ class TableViewSingleCellClassResolverSpec: QuickSpec {
                     expect(registeredCellClasses[0] is SampleTableViewCell.Type).to(beTrue())
                 })
             })
-            describe("cellClass(for indexPath: NSIndexPath)", {
+            describe("cellClass(for indexPath: IndexPath)", {
                 it("will return Generic Class", closure: {
                     let cellClassResolver: TableViewSingleCellClassResolver<SampleTableViewCell>.Type = TableViewSingleCellClassResolver<SampleTableViewCell>.self
-                    let cellClass: UITableViewCell.Type                                               = cellClassResolver.cellClass(for: NSIndexPath(forRow: 0, inSection: 0))
+                    let cellClass: UITableViewCell.Type                                               = cellClassResolver.cellClass(for: IndexPath(row: 0, section: 0))
 
                     expect(cellClass is SampleTableViewCell.Type).to(beTrue())
                 })

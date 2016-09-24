@@ -24,8 +24,8 @@ class SelectableTableViewDataSourceSpec: QuickSpec {
                         expect(tableViewAndRelatedModules.dataSource.selectedRowDataList().isEmpty).to(equal(calledCount % 2 == 0))
                     }
 
-                    (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 0, inSection: 0)) as! SelectableRowData).setSelectedState(true)
-                    (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 0, inSection: 0)) as! SelectableRowData).setSelectedState(false)
+                    (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 0, section: 0)) as! SelectableRowData).setSelectedState(true)
+                    (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 0, section: 0)) as! SelectableRowData).setSelectedState(false)
 
                     expect(calledCount == 0).toEventually(beFalse())
                 })
@@ -41,8 +41,8 @@ class SelectableTableViewDataSourceSpec: QuickSpec {
                 context("with some cells are selected state", {
                     it("will return empty array", closure: {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
-                        let indexPath1: NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-                        let indexPath2: NSIndexPath = NSIndexPath(forRow: 2, inSection: 1)
+                        let indexPath1: IndexPath = IndexPath(row: 0, section: 0)
+                        let indexPath2: IndexPath = IndexPath(row: 2, section: 1)
 
                         (tableViewAndRelatedModules.dataSource.rowData(at: indexPath1) as! SelectableRowData).setSelectedState(true)
                         (tableViewAndRelatedModules.dataSource.rowData(at: indexPath2) as! SelectableRowData).setSelectedState(true)
@@ -58,12 +58,12 @@ class SelectableTableViewDataSourceSpec: QuickSpec {
                     it("will make all rowData not selected", closure: {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
 
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 0, inSection: 0)) as! SelectableRowData).setSelectedState(true)
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 1, inSection: 0)) as! SelectableRowData).setSelectedState(true)
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 2, inSection: 0)) as! SelectableRowData).setSelectedState(true)
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 0, inSection: 1)) as! SelectableRowData).setSelectedState(true)
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 1, inSection: 1)) as! SelectableRowData).setSelectedState(true)
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 2, inSection: 1)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 0, section: 0)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 1, section: 0)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 2, section: 0)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 0, section: 1)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 1, section: 1)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 2, section: 1)) as! SelectableRowData).setSelectedState(true)
 
                         tableViewAndRelatedModules.dataSource.makeSameOrToggleAllRowDataSelectedState()
 
@@ -73,8 +73,8 @@ class SelectableTableViewDataSourceSpec: QuickSpec {
                 context("with rowDataList which consist of selected/not selected rowData", {
                     it("will make all rowData selected", closure: {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
-                        let indexPath1: NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-                        let indexPath2: NSIndexPath = NSIndexPath(forRow: 1, inSection: 1)
+                        let indexPath1: IndexPath = IndexPath(row: 0, section: 0)
+                        let indexPath2: IndexPath = IndexPath(row: 1, section: 1)
 
                         (tableViewAndRelatedModules.dataSource.rowData(at: indexPath1) as! SelectableRowData).setSelectedState(true)
                         (tableViewAndRelatedModules.dataSource.rowData(at: indexPath2) as! SelectableRowData).setSelectedState(true)
@@ -99,12 +99,12 @@ class SelectableTableViewDataSourceSpec: QuickSpec {
                     it("will make all rowData not selected", closure: {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
 
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 0, inSection: 0)) as! SelectableRowData).setSelectedState(true)
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 1, inSection: 0)) as! SelectableRowData).setSelectedState(true)
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 2, inSection: 0)) as! SelectableRowData).setSelectedState(true)
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 0, inSection: 1)) as! SelectableRowData).setSelectedState(true)
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 1, inSection: 1)) as! SelectableRowData).setSelectedState(true)
-                        (tableViewAndRelatedModules.dataSource.rowData(at: NSIndexPath(forRow: 2, inSection: 1)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 0, section: 0)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 1, section: 0)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 2, section: 0)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 0, section: 1)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 1, section: 1)) as! SelectableRowData).setSelectedState(true)
+                        (tableViewAndRelatedModules.dataSource.rowData(at: IndexPath(row: 2, section: 1)) as! SelectableRowData).setSelectedState(true)
 
                         tableViewAndRelatedModules.dataSource.clearAllRowDataSelectedState()
 
@@ -114,8 +114,8 @@ class SelectableTableViewDataSourceSpec: QuickSpec {
                 context("with rowDataList which consist of selected/not selected rowData", {
                     it("will make all rowData not selected", closure: {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
-                        let indexPath1: NSIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-                        let indexPath2: NSIndexPath = NSIndexPath(forRow: 1, inSection: 1)
+                        let indexPath1: IndexPath = IndexPath(row: 0, section: 0)
+                        let indexPath2: IndexPath = IndexPath(row: 1, section: 1)
 
                         (tableViewAndRelatedModules.dataSource.rowData(at: indexPath1) as! SelectableRowData).setSelectedState(true)
                         (tableViewAndRelatedModules.dataSource.rowData(at: indexPath2) as! SelectableRowData).setSelectedState(true)
@@ -152,15 +152,15 @@ class SelectableTableViewDataSourceSpec: QuickSpec {
 }
 
 private class DummySelectableRowData: SelectableRowData {
-    var indexPath: NSIndexPath
+    var indexPath: IndexPath
     var title: String
 
-    init(indexPath: NSIndexPath) {
+    init(indexPath: IndexPath) {
         self.indexPath = indexPath
         self.title = "dummy title \(indexPath.section)\(indexPath.row)"
     }
 
-    override func isEqual(object: AnyObject?) -> Bool {
+    override func isEqual(_ object: Any?) -> Bool {
         guard let object = object as? DummySelectableRowData else {
             return false
         }
@@ -172,7 +172,7 @@ private class DummySelectableRowData: SelectableRowData {
 private class DummySelectableTableViewCell: UITableViewCell, RowDataAcceptableType {
     private(set) var rowData: DummySelectableRowData?
 
-    func update(rowData: RowData) {
+    func update(_ rowData: RowData) {
         guard let rowData = rowData as? DummySelectableRowData else {
             return
         }
@@ -185,12 +185,12 @@ private class DummySectionDataFactory: SectionDataFactoryType {
     var sectionCount: Int = 0
     var rowDataCount: Int = 0
 
-    private func create(for section: Int, completion: ((sectionData: SectionData, error: NSError?) -> Void)) {
+    fileprivate func create(for section: Int, completion: ((_ sectionData: SectionData, _ error: NSError?) -> Void)) {
         let rowDataList: [DummySelectableRowData] = [Int](0..<rowDataCount).map({
-            DummySelectableRowData.init(indexPath: NSIndexPath(forRow: $0, inSection: section))
+            DummySelectableRowData.init(indexPath: IndexPath(row: $0, section: section))
         })
 
-        completion(sectionData: SelectableSectionData(rowDataList: rowDataList), error: nil)
+        completion(SelectableSectionData(rowDataList: rowDataList), nil)
     }
 
     func numberOfSections() -> Int {
