@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SelectableRowData: RowData {
+open class SelectableRowData: RowData {
     public var didUpdateSelectedState: (() -> Void)?
 
     private var selected: Bool = false {
@@ -23,7 +23,7 @@ public class SelectableRowData: RowData {
         return selected
     }
 
-    public func setSelectedState(isSelected: Bool) {
+    public func setSelectedState(_ isSelected: Bool) {
         self.selected = isSelected
     }
 

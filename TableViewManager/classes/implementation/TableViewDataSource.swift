@@ -14,9 +14,9 @@ import SwiftExtensions
 
 public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
-    public var setupCellConnection: ((indexPath: NSIndexPath, cell: UITableViewCell) -> Void)?
-    public var canEditRow: ((indexPath: NSIndexPath) -> Bool)?
-    public var didEditRow: ((editingStyle: UITableViewCellEditingStyle, indexPath: NSIndexPath) -> Void)?
+    public var setupCellConnection: ((_ indexPath: IndexPath, _ cell: UITableViewCell) -> Void)?
+    public var canEditRow: ((_ indexPath: IndexPath) -> Bool)?
+    public var didEditRow: ((_ editingStyle: UITableViewCellEditingStyle, _ indexPath: IndexPath) -> Void)?
 
     private let sectionDataFactory: SectionDataFactoryType
     let cellClassResolver: TableViewCellClassResolverType.Type
@@ -42,7 +42,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
     //MARK: - UITableViewDataSource
 
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section >= sectionDataList.count {
             return 0
         }
@@ -50,14 +50,14 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         return sectionDataList[section].numberOfRows()
     }
 
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellClass: UITableViewCell.Type = cellClassResolver.cellClass(for: indexPath)
 
-        if let cell = tableView.dequeueReusableCellWithIdentifier(cellClass.cellIdentifier) {
-            if let cell = cell as? RowDataAcceptableType, rowData = self.rowData(at: indexPath) {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellClass.cellIdentifier) {
+            if let cell = cell as? RowDataAcceptableType, let rowData = self.rowData(at: indexPath) {
                 cell.update(rowData)
             }
-            setupCellConnection?(indexPath: indexPath, cell: cell)
+            setupCellConnection?(indexPath, cell)
 
             return cell
         }
@@ -65,22 +65,22 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         return UITableViewCell()
     }
 
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return sectionDataList.count
     }
 
-    public func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if let canEditRow = canEditRow {
-            return canEditRow(indexPath: indexPath)
+            return canEditRow(indexPath)
         }
 
         return false
     }
 
-    public func tableView(tableView: UITableView,
-                          commitEditingStyle editingStyle: UITableViewCellEditingStyle,
-                          forRowAtIndexPath indexPath: NSIndexPath) {
-        didEditRow?(editingStyle: editingStyle, indexPath: indexPath)
+    public func tableView(_ tableView: UITableView,
+                          commit editingStyle: UITableViewCellEditingStyle,
+                          forRowAt indexPath: IndexPath) {
+        didEditRow?(editingStyle, indexPath)
     }
 
     //MARK: - TableViewDataSourceType
@@ -93,13 +93,13 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         var allRowDataList: [RowData] = []
 
         for sectionData in sectionDataList {
-            allRowDataList.appendContentsOf(sectionData.rowDataList)
+            allRowDataList.append(contentsOf: sectionData.rowDataList)
         }
 
         return allRowDataList
     }
 
-    public func rowData(at indexPath: NSIndexPath) -> RowData? {
+    public func rowData(at indexPath: IndexPath) -> RowData? {
         if indexPath.section >= sectionDataList.count {
             return nil
         }
@@ -111,21 +111,21 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         return !allRowDataList().isEmpty
     }
 
-    public func updateSectionDataList(completion: ((result: SectionDataListUpdateResult) -> Void)?) {
+    public func updateSectionDataList(_ completion: ((_ result: SectionDataListUpdateResult) -> Void)?) {
         let currentSectionDataList: [SectionData] = self.sectionDataList
 
         fetchNewSectionDataList {[weak self] (newSectionDataList, error) in
             if let error = error {
-                completion?(result: Result.Failure(error))
+                completion?(Result.failure(error))
                 return
             }
 
-            let insertedIndexPaths: [NSIndexPath] = self?.insertedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList) ?? []
-            let removedIndexPaths: [NSIndexPath]  = self?.removedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList) ?? []
+            let insertedIndexPaths: [IndexPath] = self?.insertedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList) ?? []
+            let removedIndexPaths: [IndexPath]  = self?.removedIndexPaths(currentSectionDataList, newSectionDataList: newSectionDataList) ?? []
 
             self?.internalSectionDataList = newSectionDataList
 
-            completion?(result: Result.Success((insertedIndexPaths: insertedIndexPaths, removedIndexPaths: removedIndexPaths)))
+            completion?(Result.success((insertedIndexPaths: insertedIndexPaths, removedIndexPaths: removedIndexPaths)))
         }
     }
 
@@ -135,42 +135,42 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
     //MARK: - private
 
-    private func fetchNewSectionDataList(completion: ((newSectionDataList: [SectionData], error: NSError?) -> Void)) {
+    private func fetchNewSectionDataList(_ completion: @escaping ((_ newSectionDataList: [SectionData], _ error: NSError?) -> Void)) {
         let endIndex: Int = sectionDataFactory.numberOfSections() == 0 ? 0 : sectionDataFactory.numberOfSections() - 1
 
-        fetchNewSectionDataList(currentIndex: 0,
-                                endIndex: endIndex,
+        fetchNewSectionDataList(from: 0,
+                                to: endIndex,
                                 fetchedSectionDataList: [],
                                 completion: completion)
     }
 
-    private func fetchNewSectionDataList(currentIndex currentIndex: Int,
-                                                      endIndex: Int,
-                                                      fetchedSectionDataList: [SectionData],
-                                                      completion: ((newSectionDataList: [SectionData], error: NSError?) -> Void)) {
+    private func fetchNewSectionDataList(from startIndex: Int,
+                                         to endIndex: Int,
+                                         fetchedSectionDataList: [SectionData],
+                                         completion: @escaping ((_ newSectionDataList: [SectionData], _ error: NSError?) -> Void)) {
 
-        sectionDataFactory.create(for: currentIndex) {[weak self] (sectionData, error) in
+        sectionDataFactory.create(for: startIndex) {[weak self] (sectionData, error) in
             if let error = error {
-                completion(newSectionDataList: [], error: error)
+                completion([], error)
                 return
             }
 
             var fetchedSectionDataList: [SectionData] = fetchedSectionDataList
             fetchedSectionDataList.append(sectionData)
 
-            if currentIndex == endIndex {
-                completion(newSectionDataList: fetchedSectionDataList, error: nil)
+            if startIndex == endIndex {
+                completion(fetchedSectionDataList, nil)
             } else {
-                self?.fetchNewSectionDataList(currentIndex: currentIndex + 1,
-                                              endIndex: endIndex,
+                self?.fetchNewSectionDataList(from: startIndex + 1,
+                                              to: endIndex,
                                               fetchedSectionDataList: fetchedSectionDataList,
                                               completion: completion)
             }
         }
     }
 
-    private func insertedIndexPaths(currentSectionDataList: [SectionData], newSectionDataList: [SectionData]) -> [NSIndexPath] {
-        var insertedIndexPaths: [NSIndexPath] = []
+    private func insertedIndexPaths(_ currentSectionDataList: [SectionData], newSectionDataList: [SectionData]) -> [IndexPath] {
+        var insertedIndexPaths: [IndexPath] = []
         for i in 0..<newSectionDataList.count {
             let isExistingSection: Bool          = i <= currentSectionDataList.count - 1
             let newSectionData: SectionData      = newSectionDataList[i]
@@ -178,7 +178,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
             for j in 0..<newSectionData.numberOfRows() {
                 var didInsert: Bool = false
-                if let currentSectionData = currentSectionData, currentRowData = currentSectionData.rowData(at: j) {
+                if let currentSectionData = currentSectionData, let currentRowData = currentSectionData.rowData(at: j) {
                     if newSectionData.rowData(at: j) != currentRowData {
                         didInsert = true
                     }
@@ -187,15 +187,15 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
                 }
 
                 if didInsert {
-                    insertedIndexPaths.append(NSIndexPath(forRow: j, inSection: i))
+                    insertedIndexPaths.append(IndexPath(row: j, section: i))
                 }
             }
         }
         return insertedIndexPaths
     }
 
-    private func removedIndexPaths(currentSectionDataList: [SectionData], newSectionDataList: [SectionData]) -> [NSIndexPath] {
-        var removedIndexPaths: [NSIndexPath] = []
+    private func removedIndexPaths(_ currentSectionDataList: [SectionData], newSectionDataList: [SectionData]) -> [IndexPath] {
+        var removedIndexPaths: [IndexPath] = []
         for i in 0..<currentSectionDataList.count {
             let isRemainingSection: Bool        = i <= newSectionDataList.count - 1
             let currentSectionData: SectionData = currentSectionDataList[i]
@@ -203,7 +203,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
             for j in 0..<currentSectionData.numberOfRows() {
                 var didRemoved: Bool = false
-                if let newSectionData = newSectionData, newRowData = newSectionData.rowData(at: j) {
+                if let newSectionData = newSectionData, let newRowData = newSectionData.rowData(at: j) {
                     if currentSectionData.rowData(at: j) != newRowData {
                         didRemoved = true
                     }
@@ -212,7 +212,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
                 }
 
                 if didRemoved {
-                    removedIndexPaths.append(NSIndexPath(forRow: j, inSection: i))
+                    removedIndexPaths.append(IndexPath(row: j, section: i))
                 }
             }
         }

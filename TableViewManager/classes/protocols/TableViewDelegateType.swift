@@ -10,6 +10,6 @@ import Foundation
 import UIKit
 
 public protocol TableViewDelegateType: UITableViewDelegate {
-    var didSelectRow: (NSIndexPath -> Void)? { get set }
-    var didDeselectRow: (NSIndexPath -> Void)? { get set }
+    var didSelectRow: ((IndexPath) -> Void)? { get set }
+    var didDeselectRow: ((IndexPath) -> Void)? { get set }
 }

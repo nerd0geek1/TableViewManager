@@ -37,7 +37,7 @@ public class SelectableSectionData: SectionData {
         var selectedRowDataList: [SelectableRowData] = []
 
         for rowData in rowDataList {
-            if let rowData = rowData as? SelectableRowData where rowData.isSelected() {
+            if let rowData = rowData as? SelectableRowData, rowData.isSelected() {
                 selectedRowDataList.append(rowData)
             }
         }

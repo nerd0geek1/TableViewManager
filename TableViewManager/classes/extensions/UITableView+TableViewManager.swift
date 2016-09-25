@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UITableView {
-    public func setup(dataSource dataSource: TableViewDataSource, delegate: TableViewDelegate) {
+    public func setup(dataSource: TableViewDataSource, delegate: TableViewDelegate) {
         delegate.dataSource = dataSource
 
         self.dataSource = dataSource

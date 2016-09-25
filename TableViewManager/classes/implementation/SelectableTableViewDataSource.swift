@@ -26,7 +26,7 @@ public class SelectableTableViewDataSource: TableViewDataSource {
 
         if let sectionDataList = sectionDataList as? [SelectableSectionData] {
             for sectionData in sectionDataList {
-                allSelectedRowDataList.appendContentsOf(sectionData.selectedRowDataList())
+                allSelectedRowDataList.append(contentsOf: sectionData.selectedRowDataList())
             }
         }
 

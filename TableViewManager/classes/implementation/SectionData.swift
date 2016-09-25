@@ -60,9 +60,9 @@ public class SectionFooterData {
 }
 
 public protocol SectionHeaderDataAcceptableType {
-    func update(headerData: SectionHeaderData)
+    func update(_ headerData: SectionHeaderData)
 }
 
 public protocol SectionFooterDataAcceptableType {
-    func update(footerData: SectionFooterData)
+    func update(_ footerData: SectionFooterData)
 }
