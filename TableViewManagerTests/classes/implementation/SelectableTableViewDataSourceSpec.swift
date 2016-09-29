@@ -8,7 +8,6 @@
 
 import Quick
 import Nimble
-import Result
 
 class SelectableTableViewDataSourceSpec: QuickSpec {
     override func spec() {

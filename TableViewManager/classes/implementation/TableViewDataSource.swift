@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-import Result
 import SwiftExtensions
 
 public class TableViewDataSource: NSObject, TableViewDataSourceType {
@@ -111,12 +110,12 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         return !allRowDataList().isEmpty
     }
 
-    public func updateSectionDataList(_ completion: ((_ result: SectionDataListUpdateResult) -> Void)?) {
+    public func updateSectionDataList(_ completion: (((inserted: [IndexPath], removed: [IndexPath]), NSError?) -> Void)?) {
         let currentSectionDataList: [SectionData] = self.sectionDataList
 
         fetchNewSectionDataList {[weak self] (newSectionDataList, error) in
             if let error = error {
-                completion?(Result.failure(error))
+                completion?(([], []), error)
                 return
             }
 
@@ -125,7 +124,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
             self?.internalSectionDataList = newSectionDataList
 
-            completion?(Result.success((insertedIndexPaths: insertedIndexPaths, removedIndexPaths: removedIndexPaths)))
+            completion?((insertedIndexPaths, removedIndexPaths), nil)
         }
     }
 
