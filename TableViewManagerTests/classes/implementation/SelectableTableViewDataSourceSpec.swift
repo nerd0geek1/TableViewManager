@@ -184,7 +184,7 @@ private class DummySectionDataFactory: SectionDataFactoryType {
     var sectionCount: Int = 0
     var rowDataCount: Int = 0
 
-    fileprivate func create(for section: Int, completion: ((_ sectionData: SectionData, _ error: NSError?) -> Void)) {
+    fileprivate func create(for section: Int, completion: ((_ sectionData: SectionData, _ error: Error?) -> Void)) {
         let rowDataList: [DummySelectableRowData] = [Int](0..<rowDataCount).map({
             DummySelectableRowData.init(indexPath: IndexPath(row: $0, section: section))
         })

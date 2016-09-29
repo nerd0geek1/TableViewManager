@@ -20,5 +20,5 @@ public protocol TableViewDataSourceType: UITableViewDataSource {
     func allRowDataList() -> [RowData]
     func rowData(at indexPath: IndexPath) -> RowData?
     func hasRowData() -> Bool
-    func updateSectionDataList(_ completion: ((_ indexPaths: (inserted: [IndexPath], removed: [IndexPath]), _ error: NSError?) -> Void)?)
+    func updateSectionDataList(_ completion: ((_ indexPaths: (inserted: [IndexPath], removed: [IndexPath]), _ error: Error?) -> Void)?)
 }

@@ -110,7 +110,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         return !allRowDataList().isEmpty
     }
 
-    public func updateSectionDataList(_ completion: (((inserted: [IndexPath], removed: [IndexPath]), NSError?) -> Void)?) {
+    public func updateSectionDataList(_ completion: (((inserted: [IndexPath], removed: [IndexPath]), Error?) -> Void)?) {
         let currentSectionDataList: [SectionData] = self.sectionDataList
 
         fetchNewSectionDataList {[weak self] (newSectionDataList, error) in
@@ -134,7 +134,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
     //MARK: - private
 
-    private func fetchNewSectionDataList(_ completion: @escaping ((_ newSectionDataList: [SectionData], _ error: NSError?) -> Void)) {
+    private func fetchNewSectionDataList(_ completion: @escaping ((_ newSectionDataList: [SectionData], _ error: Error?) -> Void)) {
         let endIndex: Int = sectionDataFactory.numberOfSections() == 0 ? 0 : sectionDataFactory.numberOfSections() - 1
 
         fetchNewSectionDataList(from: 0,
@@ -146,7 +146,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
     private func fetchNewSectionDataList(from startIndex: Int,
                                          to endIndex: Int,
                                          fetchedSectionDataList: [SectionData],
-                                         completion: @escaping ((_ newSectionDataList: [SectionData], _ error: NSError?) -> Void)) {
+                                         completion: @escaping ((_ newSectionDataList: [SectionData], _ error: Error?) -> Void)) {
 
         sectionDataFactory.create(for: startIndex) {[weak self] (sectionData, error) in
             if let error = error {
