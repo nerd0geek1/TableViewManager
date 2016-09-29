@@ -8,7 +8,6 @@
 
 import Quick
 import Nimble
-import Result
 
 class TableViewDataSourceSpec: QuickSpec {
     override func spec() {
@@ -89,17 +88,14 @@ class TableViewDataSourceSpec: QuickSpec {
 
                         tableViewAndRelatedModules.sectionDataFactory.sectionCount = 3
 
-                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ result in
-                            switch result {
-                            case .success(let insertedIndexPaths, let removedIndexPaths):
-                                expect(insertedIndexPaths.count).to(equal(3))
-                                expect(removedIndexPaths.count).to(equal(0))
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (_ indexPaths: (inserted: [IndexPath], removed: [IndexPath]), error) in
+                            expect(indexPaths.inserted.count).to(equal(3))
+                            expect(indexPaths.removed.count).to(equal(0))
+                            expect(error).to(beNil())
 
-                                expect(insertedIndexPaths[0]).to(equal(IndexPath(row: 0, section: 2)))
-                                expect(insertedIndexPaths[1]).to(equal(IndexPath(row: 1, section: 2)))
-                                expect(insertedIndexPaths[2]).to(equal(IndexPath(row: 2, section: 2)))
-                            case .failure:  fail("SectionDataFactoryType return error unexpectedly.")
-                            }
+                            expect(indexPaths.inserted[0]).to(equal(IndexPath(row: 0, section: 2)))
+                            expect(indexPaths.inserted[1]).to(equal(IndexPath(row: 1, section: 2)))
+                            expect(indexPaths.inserted[2]).to(equal(IndexPath(row: 2, section: 2)))
                         })
                     })
                 })
@@ -109,16 +105,13 @@ class TableViewDataSourceSpec: QuickSpec {
 
                         tableViewAndRelatedModules.sectionDataFactory.rowDataCount = 2
 
-                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ result in
-                            switch result {
-                            case .success(let insertedIndexPaths, let removedIndexPaths):
-                                expect(insertedIndexPaths.count).to(equal(0))
-                                expect(removedIndexPaths.count).to(equal(2))
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (_ indexPaths: (inserted: [IndexPath], removed: [IndexPath]), error) in
+                            expect(indexPaths.inserted.count).to(equal(0))
+                            expect(indexPaths.removed.count).to(equal(2))
+                            expect(error).to(beNil())
 
-                                expect(removedIndexPaths[0]).to(equal(IndexPath(row: 2, section: 0)))
-                                expect(removedIndexPaths[1]).to(equal(IndexPath(row: 2, section: 1)))
-                            case .failure:  fail("SectionDataFactoryType return error unexpectedly.")
-                            }
+                            expect(indexPaths.removed[0]).to(equal(IndexPath(row: 2, section: 0)))
+                            expect(indexPaths.removed[1]).to(equal(IndexPath(row: 2, section: 1)))
                         })
                     })
                 })
@@ -214,7 +207,7 @@ private class DummySectionDataFactory: SectionDataFactoryType {
     var sectionCount: Int = 0
     var rowDataCount: Int = 0
 
-    fileprivate func create(for section: Int, completion: ((_ sectionData: SectionData, _ error: NSError?) -> Void)) {
+    fileprivate func create(for section: Int, completion: ((_ sectionData: SectionData, _ error: Error?) -> Void)) {
         let rowDataList: [DummyRowData] = [Int](0..<rowDataCount).map({
             DummyRowData.init(indexPath: IndexPath(row: $0, section: section))
         })
