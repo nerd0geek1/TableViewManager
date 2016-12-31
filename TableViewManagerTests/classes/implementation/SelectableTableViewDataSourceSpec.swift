@@ -181,18 +181,19 @@ private class DummySelectableTableViewCell: UITableViewCell, RowDataAcceptableTy
 }
 
 private class DummySectionDataFactory: SectionDataFactoryType {
+
     var sectionCount: Int = 0
     var rowDataCount: Int = 0
 
-    fileprivate func create(for section: Int, completion: ((_ sectionData: SectionData, _ error: Error?) -> Void)) {
+    func numberOfSections() -> Int {
+        return sectionCount
+    }
+
+    func create(for section: Int, completion: @escaping ((SectionData, Error?) -> Void)) {
         let rowDataList: [DummySelectableRowData] = [Int](0..<rowDataCount).map({
             DummySelectableRowData.init(indexPath: IndexPath(row: $0, section: section))
         })
 
         completion(SelectableSectionData(rowDataList: rowDataList), nil)
-    }
-
-    func numberOfSections() -> Int {
-        return sectionCount
     }
 }

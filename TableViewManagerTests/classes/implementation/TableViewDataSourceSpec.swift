@@ -204,18 +204,19 @@ private class DummyTableViewCell: UITableViewCell, RowDataAcceptableType {
 }
 
 private class DummySectionDataFactory: SectionDataFactoryType {
+
     var sectionCount: Int = 0
     var rowDataCount: Int = 0
 
-    fileprivate func create(for section: Int, completion: ((_ sectionData: SectionData, _ error: Error?) -> Void)) {
+    func numberOfSections() -> Int {
+        return sectionCount
+    }
+
+    func create(for section: Int, completion: @escaping ((SectionData, Error?) -> Void)) {
         let rowDataList: [DummyRowData] = [Int](0..<rowDataCount).map({
             DummyRowData.init(indexPath: IndexPath(row: $0, section: section))
         })
 
         completion(SectionData(rowDataList: rowDataList), nil)
-    }
-
-    func numberOfSections() -> Int {
-        return sectionCount
     }
 }
