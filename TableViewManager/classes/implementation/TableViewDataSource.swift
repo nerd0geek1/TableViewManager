@@ -39,7 +39,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         updateSectionDataList(nil)
     }
 
-    //MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section >= sectionDataList.count {
@@ -82,7 +82,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         didEditRow?(editingStyle, indexPath)
     }
 
-    //MARK: - TableViewDataSourceType
+    // MARK: - TableViewDataSourceType
 
     public func sectionCount() -> Int {
         return sectionDataList.count
@@ -128,11 +128,11 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
         }
     }
 
-    //MARK: - internal
+    // MARK: - internal
 
     func didUpdateSectionDataList() {}
 
-    //MARK: - private
+    // MARK: - private
 
     private func fetchNewSectionDataList(_ completion: @escaping ((_ newSectionDataList: [SectionData], _ error: Error?) -> Void)) {
         let endIndex: Int = sectionDataFactory.numberOfSections() == 0 ? 0 : sectionDataFactory.numberOfSections() - 1
