@@ -14,7 +14,7 @@ public class TableViewDelegate: NSObject, TableViewDelegateType {
     public var didDeselectRow: ((IndexPath) -> Void)?
     public weak var dataSource: TableViewDataSource?
 
-    //MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         didSelectRow?(indexPath)
@@ -69,7 +69,7 @@ public class TableViewDelegate: NSObject, TableViewDelegateType {
         return sectionFooterView
     }
 
-    //MARK: - private
+    // MARK: - private
 
     private func sectionData(for section: Int) -> SectionData? {
         guard let dataSource = dataSource else {
