@@ -16,7 +16,7 @@ public class SectionData {
     public let footerView: UIView?
     public let footerData: SectionFooterData?
 
-    //MARK: - public
+    // MARK: - public
 
     public init(headerView: UIView? = nil,
                 headerData: SectionHeaderData? = nil,

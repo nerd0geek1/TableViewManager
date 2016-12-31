@@ -17,7 +17,7 @@ open class SelectableRowData: RowData {
         }
     }
 
-    //MARK: - public
+    // MARK: - public
 
     public func isSelected() -> Bool {
         return selected
