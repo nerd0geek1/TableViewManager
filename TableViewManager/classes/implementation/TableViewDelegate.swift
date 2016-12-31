@@ -12,6 +12,7 @@ import UIKit
 public class TableViewDelegate: NSObject, TableViewDelegateType {
     public var didSelectRow: ((IndexPath) -> Void)?
     public var didDeselectRow: ((IndexPath) -> Void)?
+    public var didScrollScrollView: ((UIScrollView) -> Void)?
     public weak var dataSource: TableViewDataSource?
 
     // MARK: - UITableViewDelegate
@@ -67,6 +68,12 @@ public class TableViewDelegate: NSObject, TableViewDelegateType {
         }
 
         return sectionFooterView
+    }
+
+    // MARK: - UIScrollViewDelegate
+
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        didScrollScrollView?(scrollView)
     }
 
     // MARK: - private

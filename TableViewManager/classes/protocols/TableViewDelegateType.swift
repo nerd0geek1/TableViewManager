@@ -12,4 +12,5 @@ import UIKit
 public protocol TableViewDelegateType: UITableViewDelegate {
     var didSelectRow: ((IndexPath) -> Void)? { get set }
     var didDeselectRow: ((IndexPath) -> Void)? { get set }
+    var didScrollScrollView: ((UIScrollView) -> Void)? { get set }
 }
