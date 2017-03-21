@@ -17,17 +17,17 @@ open class SelectableRowData: RowData {
         }
     }
 
-    // MARK: - public
+    // MARK: - open
 
-    public func isSelected() -> Bool {
+    open func isSelected() -> Bool {
         return selected
     }
 
-    public func setSelectedState(_ isSelected: Bool) {
+    open func setSelectedState(_ isSelected: Bool) {
         self.selected = isSelected
     }
 
-    public func toggleSelectedState() {
+    open func toggleSelectedState() {
         setSelectedState(!selected)
     }
 }
