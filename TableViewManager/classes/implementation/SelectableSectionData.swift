@@ -12,11 +12,11 @@ import UIKit
 public class SelectableSectionData: SectionData {
     public var didUpdateSelectedState: (() -> Void)?
 
-    public override init(headerView: UIView? = nil,
-                         headerData: SectionHeaderData? = nil,
-                         rowDataList: [RowData],
-                         footerView: UIView? = nil,
-                         footerData: SectionFooterData? = nil) {
+    public override  required init(headerView: UIView? = nil,
+                                   headerData: SectionHeaderData? = nil,
+                                   rowDataList: [RowData],
+                                   footerView: UIView? = nil,
+                                   footerData: SectionFooterData? = nil) {
         var selectableRowDataList: [SelectableRowData] = []
         for rowData in rowDataList {
             if let rowData = rowData as? SelectableRowData {
@@ -41,7 +41,7 @@ public class SelectableSectionData: SectionData {
                 selectedRowDataList.append(rowData)
             }
         }
-
+        
         return selectedRowDataList
     }
 }
