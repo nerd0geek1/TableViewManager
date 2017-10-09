@@ -54,7 +54,6 @@
 		737A1CA51D2B672F00A2228C /* TableViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737ADAA81D0EE02A0088DA02 /* TableViewManager.framework */; };
 		737A1CA81D2B688D00A2228C /* CustomizedCellHeightType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737A1CA71D2B688D00A2228C /* CustomizedCellHeightType.swift */; };
 		737A1CAB1D2B853400A2228C /* UITableView+TableViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737A1CAA1D2B853400A2228C /* UITableView+TableViewManager.swift */; };
-		73D257A51D2D40F9005D0A3F /* SwiftExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73D257A41D2D40F9005D0A3F /* SwiftExtensions.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,7 +115,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73D257A51D2D40F9005D0A3F /* SwiftExtensions.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
