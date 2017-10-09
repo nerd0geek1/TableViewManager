@@ -9,6 +9,8 @@
 import Quick
 import Nimble
 
+@testable import TableViewManager
+
 class TableViewDataSourceSpec: QuickSpec {
     override func spec() {
         describe("TableViewDataSource") {
@@ -21,7 +23,7 @@ class TableViewDataSourceSpec: QuickSpec {
                     expect(tableViewAndRelatedModules.dataSource.sectionCount()).to(equal(2))
 
                     sectionDataFactory.sectionCount = 5
-                    dataSource.updateSectionDataList({ result in
+                    dataSource.updateSectionDataList({ (_, _) in
                         expect(dataSource.sectionCount()).to(equal(5))
                     })
                 })
@@ -42,7 +44,7 @@ class TableViewDataSourceSpec: QuickSpec {
                     sectionDataFactory.sectionCount = 3
                     sectionDataFactory.rowDataCount = 4
 
-                    dataSource.updateSectionDataList({ result in
+                    dataSource.updateSectionDataList({ (_, _) in
                         let rowDataList: [RowData] = dataSource.allRowDataList()
 
                         expect(rowDataList.count).to(equal(12))
@@ -130,7 +132,7 @@ class TableViewDataSourceSpec: QuickSpec {
                         let tableViewAndRelatedModules = self.generateTableViewAndRelatedModules()
 
                         tableViewAndRelatedModules.sectionDataFactory.rowDataCount = 0
-                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ result in
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (_, _) in
                             expect(tableViewAndRelatedModules.dataSource.hasRowData()).to(beFalse())
                         })
                     })
@@ -142,7 +144,7 @@ class TableViewDataSourceSpec: QuickSpec {
                         tableViewAndRelatedModules.sectionDataFactory.sectionCount = 0
                         tableViewAndRelatedModules.sectionDataFactory.rowDataCount = 0
 
-                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ result in
+                        tableViewAndRelatedModules.dataSource.updateSectionDataList({ (_, _) in
                             expect(tableViewAndRelatedModules.dataSource.hasRowData()).to(beFalse())
                         })
                     })

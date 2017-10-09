@@ -9,8 +9,6 @@
 import Foundation
 import UIKit
 
-import SwiftExtensions
-
 public class TableViewDataSource: NSObject, TableViewDataSourceType {
 
     public var setupCellConnection: ((_ indexPath: IndexPath, _ cell: UITableViewCell) -> Void)?
@@ -52,7 +50,7 @@ public class TableViewDataSource: NSObject, TableViewDataSourceType {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellClass: UITableViewCell.Type = cellClassResolver.cellClass(for: indexPath)
 
-        if let cell = tableView.dequeueReusableCell(withIdentifier: cellClass.cellIdentifier) {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellClass.identifier) {
             if let cell = cell as? RowDataAcceptableType, let rowData = self.rowData(at: indexPath) {
                 cell.update(rowData)
             }
