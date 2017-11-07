@@ -18,11 +18,11 @@ public class SectionData {
 
     // MARK: - public
 
-    public init(headerView: UIView? = nil,
-                headerData: SectionHeaderData? = nil,
-                rowDataList: [RowData],
-                footerView: UIView? = nil,
-                footerData: SectionFooterData? = nil) {
+    public required init(headerView: UIView? = nil,
+                         headerData: SectionHeaderData? = nil,
+                         rowDataList: [RowData],
+                         footerView: UIView? = nil,
+                         footerData: SectionFooterData? = nil) {
         self.headerView  = headerView
         self.headerData  = headerData
         self.rowDataList = rowDataList
