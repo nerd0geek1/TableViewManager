@@ -12,7 +12,7 @@ import UIKit
 public class SelectableSectionData: SectionData {
     public var didUpdateSelectedState: (() -> Void)?
 
-    public override init(headerView: UIView? = nil,
+    public required init(headerView: UIView? = nil,
                          headerData: SectionHeaderData? = nil,
                          rowDataList: [RowData],
                          footerView: UIView? = nil,
